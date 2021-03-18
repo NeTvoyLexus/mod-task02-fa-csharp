@@ -37,12 +37,20 @@ namespace fans
             Transitions = new Dictionary<char, State>()
         };
 
+        public State d = new State()
+        {
+            Name = "d",
+            IsAcceptState = false,
+            Transitions = new Dictionary<char, State>()
+        };
         State InitialState = a;
 
         public FA1()
         {
             a.Transitions['0'] = b;
-            a.Transitions['1'] = a;
+            a.Transitions['1'] = d;
+            d.Transitions['1'] = d;
+            d.Transitions['0'] = b;
             b.Transitions['0'] = c;
             b.Transitions['1'] = b;
             c.Transitions['0'] = c;
@@ -107,7 +115,6 @@ namespace fans
         }
         public bool? Run(IEnumerable<char> s)
             {
-                return false;
                 State current = InitialState;
                 foreach (var item in s)
                 {
